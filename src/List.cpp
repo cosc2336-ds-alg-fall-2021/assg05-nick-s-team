@@ -323,3 +323,51 @@ const char* ListMemoryBoundsException::what() const throw()
   // what expects old style array of characters, so convert to that
   return message.c_str();
 }
+
+void List::merge(const List& upper, const List& lower)
+{
+  int mergeSize = lower.getSize() + upper.getSize(); 
+  if (size < mergeSize)
+  {
+    ostringstream out;
+    out << "Error: lower size: " <<  lower.getSize() << endl
+        << " upper size: " << upper.getSize() << endl
+        << " this object is not big enough to hold result size: " << size << endl;
+    throw ListMemoryBoundsException(out.str());
+  }
+
+  int indexUpper = 0;
+  int indexLower = 0;
+
+  int index = 0;
+
+    while ( indexLower < lower.getSize() && indexUpper < upper.getSize())
+    {
+      if (upper.values[indexUpper] < lower.values[indexLower])
+      {
+        values[index] = upper.values[indexUpper];
+        indexUpper++;
+      }
+      else 
+      {
+        values[index] = lower.values[indexLower];
+        indexLower++;
+      }
+      index++;
+    }
+  while (index < size)
+  {
+    if (indexLower <  lower.getSize())
+    {
+      values[index] = lower.values[indexLower];
+      indexLower++;
+    }
+
+    if (indexUpper < upper.getSize())
+    {
+      values[index] = upper.values[indexUpper];
+      indexUpper++;
+    }
+    index++;
+  }
+}
