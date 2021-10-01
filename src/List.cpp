@@ -2,7 +2,7 @@
  * @brief Implementations of member functions of the List
  *   of strings class for the Assignment Sorting and Searching
  *
- * @author Jane Programmer
+ * @author nick Rudd
  * @note   cwid : 123 45 678
  * @note   class: COSC 2336, Summer 2021
  * @note   ide  : VSCode Server 3.9.3, Gnu Development Tools
@@ -100,6 +100,44 @@ List::List(const List& list)
     values[index] = list.values[index];
   }
 }
+
+/** @brief Sub List Copy Constructor for task 1
+ * 
+ * Makes a copy constructor for the list class from the 
+ * given boundaries. 
+ * 
+ * @param list The other list being copied, begin - the starting index
+ * position, the first to be copied, end - the final index position to be 
+ * copied
+ * 
+ **/
+List::List(const List& list, int begin, int end)
+{
+  /*size = end - begin;
+  values = new string[size];
+  for (int index = 0; index <= size; index++)
+  {
+    values[index] = list.values[begin + index];
+  }
+  */
+  size = 0;
+  for (int index = begin; index <= end; index++)
+  {
+    size++;
+  }
+  values = new string[size];
+
+  // copy the values from the input List into this list
+  int position = 0;
+  for (int index = begin; index <= end; index++)
+  {
+    //string add = list.values[index];
+    values[position] = list.values[index];
+    position++;
+  }
+}
+
+
 
 /** @brief Class destructor
  *
