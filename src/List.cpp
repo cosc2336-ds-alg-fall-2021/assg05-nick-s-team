@@ -111,6 +111,7 @@ List::List(const List& list)
  * copied
  * 
  **/
+/*
 List::List(const List& list, int begin, int end)
 {  
   size = end - begin + 1;
@@ -126,6 +127,7 @@ List::List(const List& list, int begin, int end)
     position++;
   }
 }
+*/
 List::List(const List& list, int begin, int end)
 {
 
