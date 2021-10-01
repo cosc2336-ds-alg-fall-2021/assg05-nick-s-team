@@ -2,7 +2,7 @@
  * @brief Implementations of member functions of the List
  *   of strings class for the Assignment Sorting and Searching
  *
- * @author Jane Programmer
+ * @author Nick Rudd
  * @note   cwid : 123 45 678
  * @note   class: COSC 2336, Summer 2021
  * @note   ide  : VSCode Server 3.9.3, Gnu Development Tools
@@ -101,9 +101,9 @@ List::List(const List& list)
   }
 }
 
-/** @brief Sub List Copy Constructor
+/** @brief Sub List Copy Constructor for task 1 
  * 
- * Provide a copy constructor for the list class from the 
+ * Makes a copy constructor for the list class from the 
  * given boundaries. 
  * 
  * @param list The other list being copied, begin - the starting index
@@ -111,7 +111,7 @@ List::List(const List& list)
  * copied
  * 
  **/
-/*List::List(const List& list, int begin, int end)
+List::List(const List& list, int begin, int end)
 {  
   size = end - begin + 1;
   values = new string[size];
@@ -125,11 +125,10 @@ List::List(const List& list)
     operator[](index);
     position++;
   }
-}*/
+}
 List::List(const List& list, int begin, int end)
 {
 
-  // first test that begin and end indexes are valid indexes of the list we are given
   if ((begin < 0) || (begin >= list.size) || (end < 0) || (end >= list.size) )
   {
     ostringstream out;
@@ -263,6 +262,7 @@ string& List::operator[](int index)
  *
  * @returns bool true if the lists are equal, false if the are not.
  */
+
 bool List::operator==(const List& rhs) const
 {
   // first the lists have to be of the same size, or else they
@@ -302,6 +302,7 @@ bool List::operator==(const List& rhs) const
  *   output stream, but after we  have inserted current List
  *   values / representation onto the stream
  */
+
 ostream& operator<<(ostream& out, const List& rhs)
 {
   // reuse List str() method to stream to output stream
@@ -315,8 +316,10 @@ ostream& operator<<(ostream& out, const List& rhs)
  *
  * Constructor for exceptions used for our List class.
  *
- * @param message The exception message thrown when an error occurs.
+ * @param message The exception message thrown when an error occurs
+ * think this works
  */
+
 ListMemoryBoundsException::ListMemoryBoundsException(const string& message)
 {
   this->message = message;
@@ -327,6 +330,7 @@ ListMemoryBoundsException::ListMemoryBoundsException(const string& message)
  * Destructor for exceptions used for our ListMemoryBoundsException
  * class.
  */
+
 ListMemoryBoundsException::~ListMemoryBoundsException() {}
 
 /** @brief Memory bounds exception message

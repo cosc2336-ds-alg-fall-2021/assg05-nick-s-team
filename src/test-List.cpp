@@ -3,7 +3,7 @@
  * @brief Unit tests for Assignment Sorting and Searching:
  *   Recursive Sorting and Searching with Merge Sort and Binary Search.
  *
- * @author Derek Harter
+ * @author Nick Rudd
  * @note   class: COSC 2336, Summer 2021
  * @note   ide  : VSCode Server 3.9.3, Gnu Development Tools
  * @note   assg : Assignment Sorting and Searching
@@ -395,6 +395,7 @@ TEST_CASE("<List> implement merge member function", "[task2]")
   // You need to make sure for now that the destination of the merge is large enough
   // to hold the two merged input lists.  If there is not enough space you should
   // be throwing an exception
+
   SECTION("test some more general mixed merges")
   {
     string i1Values[] = {"agent smith", "dozer", "dujour", "morpheus", "neo", "spoon boy"};
@@ -557,6 +558,7 @@ TEST_CASE("<List> implement sort member function", "[task3]")
 
 
 /** Task 4: implement the recursive search member function
+ * dont know how to do the rest 
  */
 /*
 TEST_CASE("<List> implement search member function", "[task4]")

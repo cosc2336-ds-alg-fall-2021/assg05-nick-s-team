@@ -1,7 +1,7 @@
 /** @file List.hpp
  * @brief Declarations of List class for Assignment Searching and Sorting
  *
- * @author Jane Programmer
+ * @author Nick Rudd
  * @note   class: COSC 2336, Summer 2021
  * @note   ide  : VSCode Server 3.9.3, Gnu Development Tools
  * @note   assg : Assignment Sorting and Searching
