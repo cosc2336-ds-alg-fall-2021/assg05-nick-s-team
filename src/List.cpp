@@ -371,3 +371,19 @@ void List::merge(const List& upper, const List& lower)
     index++;
   }
 }
+
+void List::sort()
+{
+  if (size == 0 || size == 1)
+  {
+    return;
+  }
+  else
+  {
+    List lower = List(*this, 0, size/2-1);
+    List upper = List(*this, size/2, size-1);
+    upper.sort();
+    lower.sort();
+    merge(lower, upper);
+  }
+}
