@@ -2,7 +2,7 @@
  * @brief Implementations of member functions of the List
  *   of strings class for the Assignment Sorting and Searching
  *
- * @author nick Rudd
+ * @author Jane Programmer
  * @note   cwid : 123 45 678
  * @note   class: COSC 2336, Summer 2021
  * @note   ide  : VSCode Server 3.9.3, Gnu Development Tools
@@ -101,9 +101,9 @@ List::List(const List& list)
   }
 }
 
-/** @brief Sub List Copy Constructor for task 1
+/** @brief Sub List Copy Constructor
  * 
- * Makes a copy constructor for the list class from the 
+ * Provide a copy constructor for the list class from the 
  * given boundaries. 
  * 
  * @param list The other list being copied, begin - the starting index
@@ -111,30 +111,48 @@ List::List(const List& list)
  * copied
  * 
  **/
+/*List::List(const List& list, int begin, int end)
+{  
+  size = end - begin + 1;
+  values = new string[size];
+  int position = 0;
+  for (int index = begin; index <= end; index++)
+  { 
+    //operator[](begin);
+    //operator[](end);
+    //operator[](index - begin) = list.values[index];
+    values[position] = list.values[index];
+    operator[](index);
+    position++;
+  }
+}*/
 List::List(const List& list, int begin, int end)
 {
-  /*size = end - begin;
-  values = new string[size];
-  for (int index = 0; index <= size; index++)
+
+  // first test that begin and end indexes are valid indexes of the list we are given
+  if ((begin < 0) || (begin >= list.size) || (end < 0) || (end >= list.size) )
   {
-    values[index] = list.values[begin + index];
+    ostringstream out;
+    out << "Error: illegal bounds access, list size: " << list.size
+           << " tried to access begin address: " << begin
+           << " end address: " << end;
+
+    throw ListMemoryBoundsException(out.str());
   }
-  */
+
   size = 0;
   for (int index = begin; index <= end; index++)
   {
     size++;
   }
   values = new string[size];
-
-  // copy the values from the input List into this list
   int position = 0;
   for (int index = begin; index <= end; index++)
-  {
-    //string add = list.values[index];
+  { 
     values[position] = list.values[index];
     position++;
   }
+  
 }
 
 
@@ -335,12 +353,11 @@ void List::merge(const List& upper, const List& lower)
         << " this object is not big enough to hold result size: " << size << endl;
     throw ListMemoryBoundsException(out.str());
   }
-
+  
   int indexUpper = 0;
   int indexLower = 0;
-
   int index = 0;
-
+  
     while ( indexLower < lower.getSize() && indexUpper < upper.getSize())
     {
       if (upper.values[indexUpper] < lower.values[indexLower])
