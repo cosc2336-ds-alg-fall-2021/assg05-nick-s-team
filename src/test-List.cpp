@@ -3,7 +3,7 @@
  * @brief Unit tests for Assignment Sorting and Searching:
  *   Recursive Sorting and Searching with Merge Sort and Binary Search.
  *
- * @author Derek Harter
+ * @author Nick Rudd
  * @note   class: COSC 2336, Summer 2021
  * @note   ide  : VSCode Server 3.9.3, Gnu Development Tools
  * @note   assg : Assignment Sorting and Searching
@@ -162,7 +162,7 @@ TEST_CASE("<List> test of List user defined type for this assignment", "[task0]"
 
 /** Task 1: implement a sublist copy constructor for the List class.
  */
-/*
+
 TEST_CASE("<List constructor> test of new sublist copy constructor", "[task1]")
 {
   string values1[] = {"neo", "morpheus", "trinity", "cypher", "oracle"};
@@ -233,16 +233,18 @@ TEST_CASE("<List constructor> test of new sublist copy constructor", "[task1]")
   // you need to add in check that illegal bounds are not being
   // attempted and throw a ListMemoryBoundsException.  You can see
   // the operator[] for an example of how this is done
+  
   CHECK_THROWS_AS(List(l1, -1, 4), ListMemoryBoundsException);
   CHECK_THROWS_AS(List(l1, 5, 4), ListMemoryBoundsException);
   CHECK_THROWS_AS(List(l1, 0, -1), ListMemoryBoundsException);
   CHECK_THROWS_AS(List(l1, 0, 5), ListMemoryBoundsException);
+  
 }
-*/
+
 
 /** Task 2: implement merge member function
  */
-/*
+
 TEST_CASE("<List> implement merge member function", "[task2]")
 {
   SECTION("test merge order lower, upper, lower, upper")
@@ -393,6 +395,7 @@ TEST_CASE("<List> implement merge member function", "[task2]")
   // You need to make sure for now that the destination of the merge is large enough
   // to hold the two merged input lists.  If there is not enough space you should
   // be throwing an exception
+
   SECTION("test some more general mixed merges")
   {
     string i1Values[] = {"agent smith", "dozer", "dujour", "morpheus", "neo", "spoon boy"};
@@ -414,11 +417,11 @@ TEST_CASE("<List> implement merge member function", "[task2]")
                       "dujour, morpheus, mouse, neo, spoon boy, switch, , , ,  ]");
   }
 }
-*/
+
 
 /** Task 3: implement the recursive sort member function
  */
-/*
+
 TEST_CASE("<List> implement sort member function", "[task3]")
 {
   SECTION("test base case sorts")
@@ -552,14 +555,14 @@ TEST_CASE("<List> implement sort member function", "[task3]")
                       "tank, trinity ]");
   }
 }
-*/
+
 
 /** Task 4: implement the recursive search member function
+ * dont know how to do the rest 
  */
 /*
 TEST_CASE("<List> implement search member function", "[task4]")
 {
-
   // the section for task 4
   SECTION("test base case search, search empty list should fail")
   {
@@ -567,31 +570,25 @@ TEST_CASE("<List> implement search member function", "[task4]")
     int result = l0.search("trinity", 1, 0);
     CHECK(result == NOT_FOUND);
   }
-
   SECTION("test some general cases on list of 20 values")
   {
     string l1Values[] = {"neo", "woman in red", "trinity", "tank", "persophene", "oracle", "spoon boy", "neo", "mouse", "dozer", "morpheus",
       "merovingian", "keymaker", "dujour", "cypher", "architect", "switch", "apoc", "agent smith", "agent brown"};
     List l1(20, l1Values);
-
     // need to sort it before we can search
     l1.sort();
     CHECK(l1.str() == "<list> size: 20 [ agent brown, agent smith, apoc, architect, "
                       "cypher, dozer, dujour, keymaker, merovingian, morpheus, "
                       "mouse, neo, neo, oracle, persophene, spoon boy, switch, "
                       "tank, trinity, woman in red ]");
-
     // best case scenario, item is at very middle index so search stops in 1 step
     int result = l1.search("morpheus", 0, 19);
     CHECK(result == 9);
-
     // check bounds conditions
     result = l1.search("agent brown", 0, 19);
     CHECK(result == 0);
-
     result = l1.search("woman in red", 0, 19);
     CHECK(result == 19);
-
     // check a few other searches
     result = l1.search("apoc", 0, 19);
     CHECK(result == 2);
@@ -601,17 +598,14 @@ TEST_CASE("<List> implement search member function", "[task4]")
     CHECK(result == 7);
     result = l1.search("spoon boy", 0, 19);
     CHECK(result == 15);
-
     // we did not define a deterministic result for duplicate items, so which duplicate neo
     // is found will depend on its position
     result = l1.search("neo", 0, 19);
     CHECK(result == 11);
-
     // can only do this with version that exposes begin and end, this should end up
     // finding duplicate at index 12 instead
     result = l1.search("neo", 1, 19);
     CHECK(result == 12);
-
     // test failing searches
     result = l1.search("ghost", 0, 19);
     CHECK(result == NOT_FOUND);
@@ -633,17 +627,13 @@ TEST_CASE("<List> implement isSorted member function", "[task5]")
     // list of size 0, or empty list is sorted
     List l0;
     CHECK(l0.isSorted());
-
     // list of size 1 is also sorted always
     string l1Values[] = {"neo"};
     List l1(1, l1Values);
-
     CHECK(l1.isSorted());
-
     l1[0] = "morpheus";
     CHECK(l1.isSorted());
   }
-
   SECTION("test specifically for bounds errors when checking last pair of values")
   {
     // create a list that is sorted except last pair, but
@@ -652,24 +642,19 @@ TEST_CASE("<List> implement isSorted member function", "[task5]")
     List l1(4, l1Values);
     CHECK(l1.isSorted());
   }
-
   SECTION("test in general sorted detection")
   {
     // not sorted
     string l1Values[] = {"neo", "woman in red", "trinity", "tank", "persophene", "oracle", "spoon boy", "neo", "mouse", "dozer", "morpheus",
       "merovingian", "keymaker", "dujour", "cypher", "architect", "switch", "apoc", "agent smith", "agent brown"};
     List l1(20, l1Values);
-
     CHECK_FALSE(l1.isSorted());
-
     // sorted
     l1.sort();
     CHECK(l1.isSorted());
-
     // not sorted
     l1[0] = "ghost";
     CHECK_FALSE(l1.isSorted());
-
     // sorted again
     l1.sort();
     CHECK(l1.isSorted());
@@ -688,31 +673,25 @@ TEST_CASE("<List> implement public/private search member function", "[task5-2]")
     int result = l0.search("trinity");
     CHECK(result == NOT_FOUND);
   }
-
   SECTION("test some general cases on list of 20 values")
   {
     string l1Values[] = {"neo", "woman in red", "trinity", "tank", "persophene", "oracle", "spoon boy", "neo", "mouse", "dozer", "morpheus",
       "merovingian", "keymaker", "dujour", "cypher", "architect", "switch", "apoc", "agent smith", "agent brown"};
     List l1(20, l1Values);
-
     // list is not sorted, but after first search it should have been sorted for us.
     // best case scenario, item is at very middle index so search stops in 1 step
     int result = l1.search("morpheus");
     CHECK(result == 9);
-
     // is list now sorted?
     CHECK(l1.str() == "<list> size: 20 [ agent brown, agent smith, apoc, "
                       "architect, cypher, dozer, dujour, keymaker, merovingian, "
                       "morpheus, mouse, neo, neo, oracle, persophene, spoon boy, "
                       "switch, tank, trinity, woman in red ]");
-
     // check bounds conditions
     result = l1.search("agent brown");
     CHECK(result == 0);
-
     result = l1.search("woman in red");
     CHECK(result == 19);
-
     // check a few other searches
     result = l1.search("apoc");
     CHECK(result == 2);
@@ -722,12 +701,10 @@ TEST_CASE("<List> implement public/private search member function", "[task5-2]")
     CHECK(result == 7);
     result = l1.search("spoon boy");
     CHECK(result == 15);
-
     // we did not define a deterministic result for duplicate items, so which duplicate neo
     // is found will depend on its position
     result = l1.search("neo");
     CHECK(result == 11);
-
     // test failing searches
     result = l1.search("ghost");
     CHECK(result == NOT_FOUND);

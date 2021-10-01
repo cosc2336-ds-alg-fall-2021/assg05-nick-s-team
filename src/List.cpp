@@ -2,7 +2,7 @@
  * @brief Implementations of member functions of the List
  *   of strings class for the Assignment Sorting and Searching
  *
- * @author Jane Programmer
+ * @author Nick Rudd
  * @note   cwid : 123 45 678
  * @note   class: COSC 2336, Summer 2021
  * @note   ide  : VSCode Server 3.9.3, Gnu Development Tools
@@ -100,6 +100,63 @@ List::List(const List& list)
     values[index] = list.values[index];
   }
 }
+
+/** @brief Sub List Copy Constructor for task 1 
+ * 
+ * Makes a copy constructor for the list class from the 
+ * given boundaries. 
+ * 
+ * @param list The other list being copied, begin - the starting index
+ * position, the first to be copied, end - the final index position to be 
+ * copied
+ * 
+ **/
+/*
+List::List(const List& list, int begin, int end)
+{  
+  size = end - begin + 1;
+  values = new string[size];
+  int position = 0;
+  for (int index = begin; index <= end; index++)
+  { 
+    //operator[](begin);
+    //operator[](end);
+    //operator[](index - begin) = list.values[index];
+    values[position] = list.values[index];
+    operator[](index);
+    position++;
+  }
+}
+*/
+List::List(const List& list, int begin, int end)
+{
+
+  if ((begin < 0) || (begin >= list.size) || (end < 0) || (end >= list.size) )
+  {
+    ostringstream out;
+    out << "Error: illegal bounds access, list size: " << list.size
+           << " tried to access begin address: " << begin
+           << " end address: " << end;
+
+    throw ListMemoryBoundsException(out.str());
+  }
+
+  size = 0;
+  for (int index = begin; index <= end; index++)
+  {
+    size++;
+  }
+  values = new string[size];
+  int position = 0;
+  for (int index = begin; index <= end; index++)
+  { 
+    values[position] = list.values[index];
+    position++;
+  }
+  
+}
+
+
 
 /** @brief Class destructor
  *
@@ -207,6 +264,7 @@ string& List::operator[](int index)
  *
  * @returns bool true if the lists are equal, false if the are not.
  */
+
 bool List::operator==(const List& rhs) const
 {
   // first the lists have to be of the same size, or else they
@@ -246,6 +304,7 @@ bool List::operator==(const List& rhs) const
  *   output stream, but after we  have inserted current List
  *   values / representation onto the stream
  */
+
 ostream& operator<<(ostream& out, const List& rhs)
 {
   // reuse List str() method to stream to output stream
@@ -259,8 +318,10 @@ ostream& operator<<(ostream& out, const List& rhs)
  *
  * Constructor for exceptions used for our List class.
  *
- * @param message The exception message thrown when an error occurs.
+ * @param message The exception message thrown when an error occurs
+ * think this works
  */
+
 ListMemoryBoundsException::ListMemoryBoundsException(const string& message)
 {
   this->message = message;
@@ -271,6 +332,7 @@ ListMemoryBoundsException::ListMemoryBoundsException(const string& message)
  * Destructor for exceptions used for our ListMemoryBoundsException
  * class.
  */
+
 ListMemoryBoundsException::~ListMemoryBoundsException() {}
 
 /** @brief Memory bounds exception message
@@ -284,4 +346,67 @@ const char* ListMemoryBoundsException::what() const throw()
 {
   // what expects old style array of characters, so convert to that
   return message.c_str();
+}
+
+void List::merge(const List& upper, const List& lower)
+{
+  int mergeSize = lower.getSize() + upper.getSize(); 
+  if (size < mergeSize)
+  {
+    ostringstream out;
+    out << "Error: lower size: " <<  lower.getSize() << endl
+        << " upper size: " << upper.getSize() << endl
+        << " this object is not big enough to hold result size: " << size << endl;
+    throw ListMemoryBoundsException(out.str());
+  }
+  
+  int indexUpper = 0;
+  int indexLower = 0;
+  int index = 0;
+  
+    while ( indexLower < lower.getSize() && indexUpper < upper.getSize())
+    {
+      if (upper.values[indexUpper] < lower.values[indexLower])
+      {
+        values[index] = upper.values[indexUpper];
+        indexUpper++;
+      }
+      else 
+      {
+        values[index] = lower.values[indexLower];
+        indexLower++;
+      }
+      index++;
+    }
+  while (index < size)
+  {
+    if (indexLower <  lower.getSize())
+    {
+      values[index] = lower.values[indexLower];
+      indexLower++;
+    }
+
+    if (indexUpper < upper.getSize())
+    {
+      values[index] = upper.values[indexUpper];
+      indexUpper++;
+    }
+    index++;
+  }
+}
+
+void List::sort()
+{
+  if (size == 0 || size == 1)
+  {
+    return;
+  }
+  else
+  {
+    List lower = List(*this, 0, size/2-1);
+    List upper = List(*this, size/2, size-1);
+    upper.sort();
+    lower.sort();
+    merge(lower, upper);
+  }
 }
